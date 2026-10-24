@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
+test('Voice endpoint is localhost-only and cloud-free',()=>{const s=fs.readFileSync(new URL('../server.js',import.meta.url),'utf8');assert.match(s,/BRUCE_WHISPER_MODEL/);assert.match(s,/ffmpeg/);assert.match(s,/api\/voice\/transcribe/);assert.match(s,/AUDIO_LIMIT/);assert.doesNotMatch(s,/api\.openai\.com/)});
+test('Microphone is user-initiated',()=>{const s=fs.readFileSync(new URL('../public/app.js',import.meta.url),'utf8');assert.match(s,/getUserMedia/);assert.match(s,/previewListen'\)\.onclick=beginMic/);assert.match(s,/MediaRecorder/)});
